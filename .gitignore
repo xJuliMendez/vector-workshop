@@ -1,0 +1,7 @@
+/symfony-api/.env.local
+/symfony-api/.env.local.php
+/symfony-api/.env.*.local
+/symfony-api/config/secrets/prod/prod.decrypt.private.php
+/symfony-api/public/bundles/
+/symfony-api/var/
+/symfony-api/vendor/

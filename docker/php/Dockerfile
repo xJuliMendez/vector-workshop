@@ -1,5 +1,4 @@
-FROM php:8.2-fpm
-
+FROM php:8.4-fpm
 
 RUN apt-get update && apt-get install -y \
     git \
@@ -22,4 +21,4 @@ WORKDIR /var/www/html
 
 EXPOSE 8000
 
-CMD ["symfony", "server:start", "--port=8000", "--no-tls"] 
+CMD ["php", "-S", "0.0.0.0:8000", "-t", "/var/www/html/public"]
