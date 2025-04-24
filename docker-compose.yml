@@ -1,0 +1,46 @@
+services:
+  symfony-api:
+    build:
+      context: ./docker/php
+      dockerfile: Dockerfile
+    volumes:
+      - ./symfony-api:/var/www/html
+    ports:
+      - "8000:8000"
+    depends_on:
+      - vector-db
+    networks:
+      - vector-network
+
+  embedding-api:
+    build:
+      context: ./embedding-api
+      dockerfile: ../docker/python/Dockerfile
+    volumes:
+      - ./embedding-api:/app
+    ports:
+      - "8001:8001"
+    networks:
+      - vector-network
+
+  vector-db:
+    build:
+      context: ./docker/postgres
+      dockerfile: Dockerfile
+    environment:
+      POSTGRES_DB: vector_db
+      POSTGRES_USER: vector_user
+      POSTGRES_PASSWORD: vector_password
+    volumes:
+      - vector_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - vector-network
+
+networks:
+  vector-network:
+    driver: bridge
+
+volumes:
+  vector_data: 
